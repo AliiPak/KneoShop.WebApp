@@ -16,9 +16,9 @@ public class OrderController : Controller
     [HttpGet("add-to-basket")]
     public IActionResult AddProductToOrder(int productID, int count)
     {
-        if (!User.Identity.IsAuthenticated) return Jason(new {status = "NotAuthenticated" });
-        
-        var result = _orderRepository.AddProductToOrder(User.GetCurrentUserId(),productID,count)
+        if (!User.Identity.IsAuthenticated) return Json(new {status = "NotAuthenticated" });
+
+        var result = _orderRepository.AddProductToOrder(User.GetCurrentUserId(), productID, count);
 
         if (result)
         {
