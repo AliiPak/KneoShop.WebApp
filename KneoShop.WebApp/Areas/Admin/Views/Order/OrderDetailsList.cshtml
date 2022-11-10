@@ -1,0 +1,61 @@
+﻿@using KenoShop.WebApp.Entities.Order
+@model List<OrderDetail>
+@{
+    ViewData["Title"] = "لیست اقلام سفارشات";
+
+}
+
+@section FooterSection {
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <form asp-area="Admin" asp-controller="Order" asp-action="CreateOrderDetail" class="add-new-record pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework" id="form-add-new-record" onsubmit="return false" novalidate="novalidate">
+        <div class="card">
+            <div class="card-header flex-column flex-md-row">
+                <div class="head-label text-center">
+                    <h5 class="card-title mb-0">لیست اقلام سفارشات</h5>
+                </div>
+                <div class="dt-action-buttons text-end primary-font pt-3 pt-md-0">
+                    <a class="dt-button create-new btn btn-primary" asp-area="Admin" asp-controller="Order" asp-action="CreateOrderDetail" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                        <span>
+                            <i class="bx bx-plus me-sm-2"></i> <span class="d-none d-sm-inline-block">افزودن رکورد جدید</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت</th>
+                        <th>عمل ها</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ProductID</td>
+                            <td>@item.Count</td>
+                            <td>@item.Price</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item cursor-pointer" onclick="RemoveOrderDetails(@item.OrderDetailID)"><i class="bx bx-trash me-1"></i>حذف</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>

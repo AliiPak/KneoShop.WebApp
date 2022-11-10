@@ -1,0 +1,154 @@
+﻿@using KenoShop.WebApp.ImageTools
+@using KenoShop.WebApp.ViewModels.Products
+@model FilterProductViewModel
+@{
+    ViewData["Title"] = "لیست محصولات";
+}
+
+@section FooterSection {
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+}
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="card">
+                <h5 class="card-header">لیست محصولات</h5>
+                <form asp-area="Admin" asp-controller="Product" asp-action="Index" id="filter-form" method="get">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3">
+                            <div class="row">
+                                <input asp-for="Page" type="hidden" />
+                                <div class="col-md-3 form-group">
+                                    <label>
+                                        نمایش
+                                        <select aria-controls="DataTables_Table_0" class="form-select" asp-for="TakeEntity">
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="25">25</option>
+                                        </select> ردیف
+                                    </label>
+                                </div>
+                                <div class="col-md-6 dataTables_length">
+                                    <label>
+                                        ترتیب بر اساس
+                                        <select asp-for="OrderBy" asp-items="@Html.GetEnumSelectList<OrderProducts>()" aria-controls="DataTables_Table_0" class="form-select">
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-9 d-flex justify-content-center justify-content-md-end">
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                <label>جستجو: <input type="search" class="form-control" autocomplete="off" asp-for="Name" placeholder="جستجو ..." aria-controls="DataTables_Table_0"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive text-nowrap">
+
+                        @*        <div class="dataTables_scroll">
+                    *@
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>کد محصول</th>
+                                    <th>نام محصول</th>
+                                    <th>قیمت محصول</th>
+                                    <th>وضعیت</th>
+                                    @* <th>تصویر</th> *@
+                                    <th>عمل ها</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            @foreach (var item in Model.Entities)
+                            {
+                                <tr>
+                                    <td>@item.ProductCode</td>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.ProductPrice</td>
+                                    <td>
+                                        <span class="badge bg-label-primary me-1">
+                                            @{
+                                                var ActiveTitle = "فعال";
+                                                if (item.IsInActive == false)
+                                                {
+                                                    ActiveTitle = "فعال";
+                                                }
+                                                else
+                                                {
+                                                    ActiveTitle = "غیر فعال";
+                                                }
+                                            }
+                                            @ActiveTitle
+                                        </span>
+                                    </td>
+                                    @*<td>
+                                        <img src="@PathTools.ProductThumbImagePath@item.Image" style="width:100px"/>
+                                    </td>*@
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="EditProduct" asp-route-Id="@item.ProductID"><i class="bx bx-edit-alt me-1"></i> ویرایش</a>
+                                                <a class="dropdown-item" asp-area="Admin" asp-controller="Inventory" asp-action="Index" asp-route-productID="@item.ProductID"><i class="bx bx-edit-alt me-1"></i>موجودی و ویژگی ها</a>
+                                                <a class="dropdown-item" asp-area="Admin" asp-controller="Inventory" asp-action="CreateInventory" asp-route-productID="@item.ProductID"><i class="bx bx-edit-alt me-1"></i>افزودن موجودی و ویژگی ها</a>
+                                                <a class="dropdown-item cursor-pointer" onclick="RemoveProduct(@item.ProductID)"><i class="bx bx-trash me-1"></i> حذف</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="footer row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">نمایش 0 تا 0 از 0 ردیف</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            @*                    <div><box-icon class="bx bx-{bx-refresh}" name="refresh"></box-icon></div>
+                            *@
+                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                @*                        <ul class="pagination">
+                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">قبلی</a>
+                                </li>
+                                <li class="paginate_button page-item next disabled" id="DataTables_Table_0_next">
+                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">بعدی</a>
+                                </li>
+                                </ul>*@
+                                <ul class="pagination">
+@*                                    <li class="page-item disabled">
+                                        <a class="page-link page-link-prev" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                            <span aria-hidden="true">
+                                                <i class="icon-long-arrow-right"></i>
+                                            </span>قبلی
+                                        </a>
+                                    </li>*@
+                                    @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+                                    {
+                                        <li class="paginate_button cursor-pointer @(Model.Page == i ? "active" : "")">
+                                            <a onclick="FillPage(@i)">
+                                                @i <span class="sr-only"></span>
+                                            </a>
+                                        </li>
+                                    }
+@*                                    <li class="page-item">
+                                        <a class="page-link page-link-next" href="#" aria-label="Next">
+                                            بعدی
+                                            <span aria-hidden="true">
+                                                <i class="icon-long-arrow-left"></i>
+                                            </span>
+                                        </a>
+                                    </li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

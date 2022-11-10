@@ -1,0 +1,51 @@
+﻿@using KenoShop.WebApp.ViewModels.Account
+@model EditUserViewModel
+@{
+    ViewData["Title"] = "ویرایش کاربر";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card mb-4">
+        <h5 class="card-header">چند ستون با جداکننده فرم</h5>
+        <form class="card-body" asp-area="Admin" asp-controller="Account" asp-action="EditAccount">
+            <h6 class="fw-normal">1. جزئیات حساب</h6>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label" for="multicol-username">نام کاربری</label>
+                    <input type="text" asp-for="UserName" class="form-control text-start" dir="ltr">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="multicol-email">ایمیل</label>
+                    <div class="input-group input-group-merge">
+                        <span class="input-group-text" id="multicol-email2" dir="ltr">@@example.com</span>
+                        <input type="text" asp-for="Email" class="form-control text-start" dir="ltr" aria-label="john.doe" aria-describedby="multicol-email2">
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 mx-n4">
+            <h6 class="fw-normal">2. اطلاعات شخصی</h6>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label" for="multicol-first-name">نام</label>
+                    <input type="text" asp-for="UserFirstName" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="multicol-last-name">نام خانوادگی</label>
+                    <input type="text" asp-for="UserLastName" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="multicol-birthdate">تاریخ تولد</label>
+                    <input type="hidden" asp-for="UserBirthday" class="form-control dob-picker flatpickr-input" placeholder="YYYY/MM/DD"><input class="form-control dob-picker form-control input" placeholder="YYYY/MM/DD" tabindex="0" type="text" readonly="readonly">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="multicol-phone">شماره تلفن</label>
+                    <input type="text" asp-for="UserPhoneNumber" class="form-control phone-mask text-start" dir="ltr" placeholder="658 799 8941" aria-label="658 799 8941">
+                </div>
+            </div>
+            <div class="pt-4">
+                <button type="submit" class="btn btn-primary me-sm-3 me-1">ثبت</button>
+                <button type="reset" class="btn btn-label-secondary">انصراف</button>
+            </div>
+        </form>
+    </div>
+</div>

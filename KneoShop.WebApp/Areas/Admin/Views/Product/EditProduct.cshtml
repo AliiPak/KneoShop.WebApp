@@ -1,0 +1,175 @@
+﻿@using KenoShop.WebApp.ImageTools
+@using KenoShop.WebApp.ViewModels.Products
+@model EditProductViewModel
+@{
+    ViewData["Title"] = "ویرایش محصولات";
+}
+
+<form asp-area="Admin" asp-controller="Product" asp-action="EditProduct" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ProductID" />
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="col-9">
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">ویرایش محصول</h5>
+                        <small class="text-muted float-end">برچسب پیش‌فرض</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">نام محصول</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="ProductName">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">کد محصول</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="ProductCode">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" asp-for="ProductPrice">قیمت</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-text" dir="ltr">.00</span>
+                                    <input asp-for="ProductPrice" type="text" class="form-control text-start" dir="ltr" aria-label="Amount (to the nearest dollar)">
+                                    <span class="input-group-text">تومان</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" asp-for="ProductPurchasedPrice">قیمت خرید</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-text" dir="ltr">.00</span>
+                                    <input asp-for="ProductPurchasedPrice" type="text" class="form-control text-start" dir="ltr" aria-label="Amount (to the nearest dollar)">
+                                    <span class="input-group-text">تومان</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" asp-for="ProductLiraPrice">قیمت خرید به لیر</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-text" dir="ltr">.00</span>
+                                    <input asp-for="ProductLiraPrice" type="text" class="form-control text-start" dir="ltr" aria-label="Amount (to the nearest dollar)">
+                                    <span class="input-group-text">لیر</span>
+                                </div>
+                            </div>
+                        </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="exampleFormControlSelect1">برند</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" asp-for="BrandID" asp-items="@(new SelectList(ViewBag.ListofBrands,"Value", "Text"))" aria-label="Default select example">
+                        </select>
+                    </div>
+                </div>
+                        <div class="row mb-3">
+                            <small class="col-sm-2 col-form-label">محل موجودی</small>
+                            <div class="col-sm-10">
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">مغازه</label>
+                                </div>
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">آنلاین شاپ</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <small class="col-sm-2 col-form-label">جنسیت</small>
+                            <div class="col-sm-10">
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">مردانه</label>
+                                </div>
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">زنانه</label>
+                                </div>
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">بدون جنسیت</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">توضیحات کوتاه</label>
+                            <div class="col-sm-10">
+                                <textarea id="basic-default-message" asp-for="ProductShortDescription" class="form-control" placeholder="متن توضیحات کوتاه را اینجا بنویسید"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="basic-default-message">توضیحات</label>
+                            <div class="col-sm-10">
+                                <textarea id="basic-default-message" asp-for="ProductDescription" class="form-control" placeholder="متن توضیحات را اینجا بنویسید"></textarea>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">ذخیره</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.ProductGalleries != null && Model.ProductGalleries.Any())
+                {
+                    <div class="row">
+                        @foreach (var images in Model.ProductGalleries)
+                        {
+                            <div class="col-4 col-md-6 col-lg-4 mb-3" id="product-gallery-@images.ProductGalleryID">
+                                <div class="card h-100">
+                                    <img class="card-img-top" src="@PathTools.ProductGalleryImagePath@images.Image" alt="Card image cap">
+                                    <div class="card-body">
+                                        <a class="btn btn-outline-primary" onclick="RemoveProductGallery(@images.ProductGalleryID)">حذف</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="col-3">
+                <div class="col-md p-4 card mb-4">
+                    <small class="text-light fw-semibold">تصویر اصلی محصول</small>
+                    <div class="mb-3">
+                        <img src="@PathTools.ProductImagePath@Model.ImageName" style="width:280px" />
+                    </div>
+                </div>
+                <div class="col-md p-4 card mb-4">
+                    <small class="text-light fw-semibold">انتخاب تصاویر</small>
+                    <div class="mb-3">
+                        <input asp-for="Galleries" class="form-control" type="file" multiple="">
+                    </div>
+                </div>
+                <div class="col-md p-4 card mb-4">
+                    <small class="text-light fw-semibold">انتخاب دسته بندی</small>
+                    @if (Model.ProductCategories != null && Model.ProductCategories.Any())
+                    {
+                        <ul>
+                            @foreach (var category in Model.ProductCategories)
+                            {
+                                <li>
+                                    <div class="checkbox">
+                                        @if (Model.SelectedCategories.Any(a => a == category.ProductCategoryID))
+                                        {
+                                            <input class="form-check-input" name="@nameof(Model.SelectedCategories)" type="checkbox" value="@category.ProductCategoryID" checked="">
+                                            <label class="form-check-label" for="defaultCheck3">@category.ProductCategoryTitle </label>
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" name="@nameof(Model.SelectedCategories)" type="checkbox" value="@category.ProductCategoryID">
+                                            <label class="form-check-label" for="defaultCheck1"> @category.ProductCategoryTitle</label>
+                                        }
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,41 @@
+﻿@using KenoShop.WebApp.ViewModels.BasicDefinitions
+@model ColorViewModel
+@{
+    ViewData["Title"] = "لیست رنگ ها";
+}
+
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <form asp-area="Admin" asp-controller="BasicDefinitions" asp-action="EditProduct" method="post">
+            <div class="col-9">
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">ویرایش محصول</h5>
+                        <small class="text-muted float-end">برچسب پیش‌فرض</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">نام محصول</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">کد محصول</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">ذخیره</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

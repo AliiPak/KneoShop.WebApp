@@ -1,0 +1,52 @@
+﻿@using KenoShop.WebApp.ViewModels.Account
+@model CreateUserViewModel
+@{
+    ViewData["Title"] = "تعریف کاربر";
+}
+
+<form asp-area="Admin" asp-controller="Account" asp-action="CreateAccount" method="post">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div>
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">کاربر جدید</h5>
+                        <small class="text-muted float-end">برچسب پیش‌فرض</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">نام کاربر</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="UserName">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">کد کاربر</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="UserCode">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">ایمیل</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Email">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="">
+                                <label class="form-check-label" for="defaultCheck3">ادمین</label>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">ذخیره</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
