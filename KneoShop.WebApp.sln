@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KneoShop.WebApp", "KneoShop.WebApp\KneoShop.WebApp.csproj", "{0E05084A-AF14-4D7A-A1EB-A75165C98569}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KenoShop.WebApp", "KenoShop.WebApp\KenoShop.WebApp.csproj", "{0E05084A-AF14-4D7A-A1EB-A75165C98569}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
